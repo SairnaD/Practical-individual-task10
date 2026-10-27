@@ -1,8 +1,27 @@
 package com.accenture.externalapis.demo.client;
 
-// TODO: Design this exception yourself.
-// It should extend RuntimeException and provide at least a constructor that
-// takes a message, and one that takes a message + cause (for wrapping the
-// original RestClient/WebClient exception).
 public class ClientException extends RuntimeException {
+
+    private final boolean retryable;
+
+    public ClientException(String message) {
+        this(message, null, false);
+    }
+
+    public ClientException(String message, Throwable cause) {
+        this(message, cause, false);
+    }
+
+    public ClientException(String message, boolean retryable) {
+        this(message, null, retryable);
+    }
+
+    public ClientException(String message, Throwable cause, boolean retryable) {
+        super(message, cause);
+        this.retryable = retryable;
+    }
+
+    public boolean isRetryable() {
+        return retryable;
+    }
 }
